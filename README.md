@@ -1,0 +1,20 @@
+#Directory of Friends
+
+A simple example flask app - incorporating the major features of the framework.
+
+##How I thought about making this application:
+
+###First iteration:
+-Setting up the front end
+
+-Setting up the back end
+
+###Second iteration:
+-Adding pictures
+
+###Third iteration:
+-Adding search by exact name
+
+###Fourth iteration:
+-Improving search by adding full text search
+
