@@ -1,4 +1,4 @@
-from flask import Flask, render_template,redirect
+from flask import Flask, render_template,redirect, request
 
 app = Flask(__name__)
 
@@ -11,7 +11,14 @@ def index():
 @app.route("/signup", methods=["GET","POST"])
 def signup():
     return render_template("signup.html")
-    
+
+def signedup():
+    email = request.form['email']
+    username = request.form['username']
+    password = request.form['password']
+    phone = request.form['phone']
+    picture = request.form['picture']
+    return redirect("") # add a route to the signed in homepage
 
 @app.route("/login")
 def login():
