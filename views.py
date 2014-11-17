@@ -1,4 +1,4 @@
-from flask import Flask, render_template,redirect, request
+from flask import Flask, render_template,redirect, request, flash
 
 app = Flask(__name__)
 
@@ -14,9 +14,22 @@ def signup():
 
 @app.route("/signedup", methods=["GET","POST"])
 def signedup():
-    email = request.form['email']
-    username = request.form['username']
-    password = request.form['password']
+
+    if request.form.get('email') == None:
+        flash("Please provide an email")
+    else:
+        email = request.form['email']
+    
+    if request.form.get('username') == None:
+        flash("Please think of a username")
+    else:
+        username = request.form['username']
+    
+    if request.form.get('password') == None:
+        flash("Please come up with a password")
+    else:
+        password = request.form['password']
+    
     phone = request.form.get('phone')
     
     picture = request.form.get('picture')
@@ -33,3 +46,24 @@ def directory(username):
 @app.route("/info/<username>/<person>")
 def info(username,person):
     return render_template("info.html",username=username,person=person)
+
+@app.route("/home/<username>")
+def homepage(username):
+    return render_template("homepage.html",username=username)
+
+@app.route("/add_contact/<username>")
+def add_contact(username):    
+    return render_template("add_contact.html",username=username)
+
+@app.route("/adding/<username>", methods=["GET","POST"])
+def adding(username):
+        
+    if request.form.get('name') == None:
+        flash("Please give us a name, at least")
+    else:
+        name = request.form['name']
+        
+    phone = request.form.get('phone')
+    email = request.form.get('email')
+    picture = request.form.get('picture')
+    return redirect("/home",username=username) # add a route to the signed in homepage
