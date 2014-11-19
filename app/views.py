@@ -1,6 +1,6 @@
 from app import app
-from flask import render_template,redirect, request, flash
-
+from flask import render_template,redirect, request, flash,g
+from middleware import *
 
 @app.route("/",methods=["GET","POST"])
 @app.route("/index",methods=["GET","POST"])
@@ -33,7 +33,13 @@ def signedup():
     phone = request.form.get('phone')
     
     picture = request.form.get('picture')
-    return redirect("") # add a route to the signed in homepage
+
+    if not session.get("logged_in"):
+        cur = g.db.execute('insert into account_holder (email,password,username,phone,picture) values (?,?,?,?,?)',
+                           [email,password,username,phone,picture])
+        g.db.commit()
+        flash("New user added!")
+    return redirect(url_for("home/username")) # add a route to the signed in homepage
 
 @app.route("/login")
 def login():

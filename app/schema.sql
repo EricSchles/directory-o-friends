@@ -7,7 +7,6 @@ create table directory (
        picture BLOB not null
 
 );
-#If any of these are empty pass in a null value rather than having to worry about this field not existing in the db.
 
 drop table if exists account_holder;
 create table account_holder(

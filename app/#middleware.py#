@@ -1,3 +1,0 @@
-from view import app
-def connect_db():
-    return sqlite3.connect(
