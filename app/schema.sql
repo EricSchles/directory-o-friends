@@ -1,6 +1,7 @@
 drop table if exists directory;
 create table directory (
        id integer primary key autoincrement,
+       name text not null,
        email text not null,
        username text not null, 
        phone integer not null,

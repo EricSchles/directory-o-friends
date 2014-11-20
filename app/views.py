@@ -39,7 +39,7 @@ def signedup():
                            [email,password,username,phone,picture])
         g.db.commit()
         flash("New user added!")
-    return redirect(url_for("home/username")) # add a route to the signed in homepage
+    return redirect(url_for("home/<username>")) # add a route to the signed in homepage
 
 @app.route("/login")
 def login():
@@ -47,6 +47,8 @@ def login():
 
 @app.route("/directory/<username>")
 def directory(username):
+    cur = g.db.execute('select name,email,username,phone from directory order by id desc')
+    entries = [dict(name=row[0],email=row[1], username=row[2], phone=row[3]) for row in cur.fetchall()]
     return render_template("directory.html",username=username)
 
 @app.route("/info/<username>/<person>")
