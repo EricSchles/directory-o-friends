@@ -1,5 +1,5 @@
 from app import app
-from flask import render_template,redirect, request, flash,g
+from flask import render_template,redirect, request, flash,g,session
 from middleware import *
 
 @app.route("/",methods=["GET","POST"])
