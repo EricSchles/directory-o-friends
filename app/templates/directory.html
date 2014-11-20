@@ -1,9 +1,14 @@
 {% extends "layout.html" %}
 {% block content %}
-    <h1>This is a directory of all of your friends.  Boo, why don't have any...</h1>
-    <form action="/signup">
-      <button type="submit">Sign up today!</button>
-    </form>
 
+<ul class=entries>
+  {% for contact in contacts %}
+    <li><h2>Name:{{ contact.name }}</h2></li>
+    <li>Email:{{ contact.email }}</li>
+    <li>Phone:{{ contact.phone }}</li>
+  {% else %}
+    <li><em>Unbelievable.  No entries here so far</em>
+  {% endfor %}
+  </ul>
    
 {% endblock %}

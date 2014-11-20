@@ -1,6 +1,6 @@
 from app import app
-from flask import render_template,redirect, request, flash,g,session
-from middleware import *
+from flask import render_template,redirect, request, flash,g,session,url_for
+import models
 
 @app.route("/",methods=["GET","POST"])
 @app.route("/index",methods=["GET","POST"])
@@ -35,11 +35,12 @@ def signedup():
     picture = request.form.get('picture')
 
     if not session.get("logged_in"):
-        cur = g.db.execute('insert into account_holder (email,password,username,phone,picture) values (?,?,?,?,?)',
-                           [email,password,username,phone,picture])
-        g.db.commit()
+        models.db.create_all()
+        new_user = models.AccountHolder(username,password,email,phone)
+        models.db.session.add(new_user)
+        models.db.session.commit()
         flash("New user added!")
-    return redirect(url_for("home/<username>")) # add a route to the signed in homepage
+    return redirect(url_for("home/"+username)) # add a route to the signed in homepage
 
 @app.route("/login")
 def login():
@@ -47,9 +48,8 @@ def login():
 
 @app.route("/directory/<username>")
 def directory(username):
-    cur = g.db.execute('select name,email,username,phone from directory order by id desc')
-    entries = [dict(name=row[0],email=row[1], username=row[2], phone=row[3]) for row in cur.fetchall()]
-    return render_template("directory.html",username=username)
+    contacts = models.Contact.query.all()
+    return render_template("directory.html",username=username,contacts=contacts)
 
 @app.route("/info/<username>/<person>")
 def info(username,person):
