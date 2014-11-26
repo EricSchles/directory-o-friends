@@ -6,9 +6,9 @@
     <p class=error><strong>Error:</strong> {{ error }}
     {% endif %}  
     <form method="post" action="{{ url_for('signedup') }}">
-      <p><label>Email:</label> <input type="text" name="email" required></p>  
-      <p><label>Username:</label> <input type="text" name="username" required></p>
-      <p><label>password:</label> <input type="password" name="password" required></p>
+      <p><label>Email:</label> <input type="text" name="email"></p>  
+      <p><label>Username:</label> <input type="text" name="username"></p>
+      <p><label>password:</label> <input type="password" name="password"></p>
       <h2>Optional information:</h2>
       <p><label>Phone number:</label> <input type="text" name="phone" ></p>
       <p>Don't worry we'll only show your phone number to people who are your friends.</p>

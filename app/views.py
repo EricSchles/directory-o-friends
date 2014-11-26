@@ -37,10 +37,11 @@ def signedup():
     if not session.get("logged_in"):
         models.db.create_all()
         new_user = models.AccountHolder(username,password,email,phone)
+            
         models.db.session.add(new_user)
         models.db.session.commit()
-        flash("New user added!")
-    return redirect(url_for("home/"+username)) # add a route to the signed in homepage
+    
+    return render_template("homepage.html",username=username) 
 
 @app.route("/login")
 def login():
