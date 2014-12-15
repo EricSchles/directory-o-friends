@@ -49,7 +49,8 @@ def login():
 
 @app.route("/directory/<username>")
 def directory(username):
-    contacts = models.Contact.query.all()
+    #session.query(MyClass).filter(MyClass.name == 'some name')
+    contacts = models.Contact.query.filter(models.Contact.username==username)
     return render_template("directory.html",username=username,contacts=contacts)
 
 @app.route("/info/<username>/<person>")
